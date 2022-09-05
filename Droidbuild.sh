@@ -1,10 +1,14 @@
 INFILE="$LOCAL_PATH/src/hosts.base"
 OUTFILE_REAL="$BASEDIR/system/core/rootdir/etc/hosts"
 
+if ndef WGET_OPTIONS; then
+  WGET_OPTIONS="-q"
+fi
+
 dl_hosts(){
   info "Downloading and extracting $2 hosts..."
   exec rm -rf /tmp/hosts
-  exec wget -q -O /tmp/hosts $1
+  exec wget $WGET_OPTIONS -O /tmp/hosts $1
   exec "cat /tmp/hosts >> $OUTFILE"
   success "Downloaded and extracted $2 hosts"
 }
@@ -37,6 +41,15 @@ target_cat1(){
   exec "cat $LOCAL_PATH/src/hosts_cat1.base >> $OUTFILE"
 }
 
+target_cat3(){
+  info "Building CAT-III hosts"
+  OUTFILE="/tmp/hosts_cat3"
+  exec "rm -f $OUTFILE"
+  exec cp "$INFILE $OUTFILE"
+  exec cp "$OUTFILE" "$OUTFILE_REAL"
+}
+
+
 droidbuild_module(){
   info "Cleaning hosts"
   exec rm $OUTFILE_REAL
@@ -49,6 +62,8 @@ droidbuild_module(){
     target_cat1
   elif [ $TARGET_HOSTS_CAT -eq 2 ]; then
     target_cat2
+  elif [ $TRAGET_HOSTS_CAT -eq 3 ]; then
+    target_cat3
   else
     error "Unknown hosts category: $TARGET_HOSTS_CAT"
     error "Aborting build"
