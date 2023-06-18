@@ -67,6 +67,6 @@ droidbuild_module(){
   else
     error "Unknown hosts category: $TARGET_HOSTS_CAT"
     error "Aborting build"
-    exit -1
+    exit 255
   fi
 }
