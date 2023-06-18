@@ -62,11 +62,11 @@ droidbuild_module(){
     target_cat1
   elif [ $TARGET_HOSTS_CAT -eq 2 ]; then
     target_cat2
-  elif [ $TRAGET_HOSTS_CAT -eq 3 ]; then
+  elif [ $TARGET_HOSTS_CAT -eq 3 ]; then
     target_cat3
   else
     error "Unknown hosts category: $TARGET_HOSTS_CAT"
     error "Aborting build"
-    exit -1
+    exit 255
   fi
 }
