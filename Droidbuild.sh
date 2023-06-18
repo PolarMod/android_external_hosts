@@ -52,7 +52,7 @@ target_cat3(){
 
 droidbuild_module(){
   info "Cleaning hosts"
-  exec rm $OUTFILE_REAL
+  exec rm -f $OUTFILE_REAL
   if ndef TARGET_HOSTS_CAT; then
     warn "TARGET_HOSTS_CAT is undefined. Defining it as 1."
     TARGET_HOSTS_CAT=1
